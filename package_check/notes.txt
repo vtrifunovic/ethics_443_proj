@@ -1,0 +1,63 @@
+When I first started this project I wanted to focus on the in class conversation we had about Charachter AI and how one of their chatbots played
+a part in the suicide of a 14 year old boy. While my ethical framework around it was still hazy, I figured my solution to this issue would be a sentiment
+analysis model that would be trained to detect signs of self-harm and raise some kind of warning or error that could be sent to and reviewed by an admin 
+to cut the conversation short if there were genuine signs of self harm.
+
+The issue with doing this came when trying to put together my ethical framework for it. I wanted to base it on vitrue ethics, and talk about how we should care about
+the users and put checks and balances into place to assure that the users of the website are not harmed by the AI. This all fell apart after watching a video from one 
+of my favorite youtubers, Charlie. He had coincidentally made a video about the situation, and I decided to watch it to see what his perspective on the situation was.
+During the video I watched him talk to an AI on the website pretending to be a therapist and doing its best to convince him that it was an actual person. 
+To summarize his findings I want to play this short clip from the video (19:17 - 19:45).
+
+This video made me realize the fundamental issue with my ethical framework, which was that its not my job to care. Maybe thats bit of a unrefined way of explaining it,
+but to quote a question that I had been asked earlier, "is my role as a developer to maximize profit or build good products?"
+
+The issue with my original idea was that I had once again inserted myself into the c-sutie's position and was worried about the ethics of maximizing profits.
+Charachter AI's chatbots were purposefully built to be as enganging and realistic as possible as they knew that would maximize the amount of time users
+spent on their website talking to the AI, which in turn would maximize their ad revenue (or however they made their money). 
+
+Say that I WAS a developer at Charachter AI and I proposed my solution before the suicide had taken place. Would it even be considered? 
+My job would have been to develop an enganging AI, not to worry if it would be too enganging. And even if my solution was considered, would it be used? 
+Hosting another model, and using additional compuational power to run this sentiment analysis is not free. 
+I would effectively be asking the company to minimize profits for a one in a million situation.
+
+This example extends further than just Charachter AI. When thinking deeper about it, I began to realize that a lot of unetical practices are done with the 
+goal of maximizing profits. Think Enron, Theranos, and FTX. Maybe thats a bit more financial than tech and AI, so how about Apple's planned obselecence so customers are forced to buy new phones,
+[stable diffusion stealing art styles so it can have more training data] or Tesla cars crashing out because consumers were misled about their cars full self driving capabilities. 
+
+In all of these situations, these unetical choices were made to maximize profit for the company, and if my role as a developer is not to maximize profits,
+then it shouldn't be to worry about the ethics of those choices either. Especially, since the easiest solution to a lot of these issues would be very simple.
+Just dont do it. Dont slow down old phones, or steal art, there wouldn't be much for me to redo a solution to. 
+
+So where does that leave us? Does this mean that I'm free from having to worry about ethics at all? Not exactly, but the ethical framework that I am proposing is a modified version of deontology.
+Deontology states that "an action is considered morally good because of some charachteristic of the action, not because the product of the action is good". And I want to expand on it and say 
+that if a product is out of our control, then so are the ethics of it, but what we do have control over we want it to be created with morally good actions. 
+How a product is used when it is deployed, and what all the different consequences are of it cannot be controlled. To say that an action can only be morally good if its result is good is,
+to me, a fallacy. Do we consider the creators or radar, the technology we use to know what kind of weather to expect unetical, because the MQ-9 reaper also uses radar?
+
+So what is it that developers can control? The code that they write and use. Using libraries and other people's code does come with rules to it. We call these rules licenses.
+While this is not something we have to worry about when writing code for fun or for educational purposes, it does become important when building products, since these licenses
+determine what we can and can't do with these libraries. 
+
+In 2009 Microsoft had issues when segments of windows 7 were leaked that contained GPL licensed code. GPL is a copyleft license, loosely meaning that any code that uses it
+also has to be under the GPL license, which it wasn't since windows is closed source. This is a big deal as it forced Microsoft to remove that tool as it violated copyright (or copyleft i guess).
+Now Microsoft is under fire for a similar issue as their GitHub Copilot has been reverse engineered to reveal that it had been trained on open-source code that was under
+GPL, Apache, and MIT licenses, all which require it to credit the authors of the original code, and thats not considering the additional implications that abusing GPL code warrants.
+Becuase of this a complaint was submitted to a US District court demanding 9 billion dollars in statutory damages.
+
+This practice is unetical as it is stealing code without proper credit. How copilot will be used is very much outside of the developers control, but the code that its built with and
+the code that it ingests is the developers problem. With my modified deontological ethical framework in place, these developers we acting unetically as the part they had
+control over they abused, and stole code without giving proper credit. I cannot say their actions were done with good intentions as they did nothing to give credit or 
+simply avoid the repositories they scraped the code from. 
+
+If they were re-doing Copilot with my ethical framework in place, they would need to either avoid any code that they don't have proper licenses for, or they would have to create a method
+to have Copilot properly credit the authors of the code like for example including author names in the training data. Since copilots training data was most likely scraped from sites like
+github or gitlab, there should be some kind of check for licenses that should be avoided. Furthermore, the libraries that the AI is built with should have also been checked for what 
+licenses they use, as it is very possible that if the developers were not paying attention to what code their model ingested, then they may also not have been paying attention 
+to what libraries they deployed their model with.
+
+Since a lot of AI is built with python, I decided to redo these two steps for them. I have made a small library with two tools. One that will look into a python project and tunnel
+through it to determine what libraries are used in it and extract their licenses, and the other a preliminary step for web scraping, to check if a certain repository is under licenses that
+the developers would like to avoid. 
+
+[show]
