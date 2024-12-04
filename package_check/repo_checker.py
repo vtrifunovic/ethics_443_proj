@@ -38,6 +38,8 @@ class RepoCheck:
         if not self._handle_response_codes(response, url, 1):
             return "Check url again"
         soup = BeautifulSoup(response.text, "html.parser")
+        # i know these aren't divs anymore, but that was my original
+        # search and the variable name stayed
         divs = []
         if self._check_host(url):
             divs = soup.find_all("span", {"class":"project-stat-value"})
@@ -47,9 +49,9 @@ class RepoCheck:
             return None
         div = divs[0].text.strip()
         if div == "LICENSE": # handle this
-            pass
+            return "Custom"
         if div == "View license": # handle this
-            pass
+            return "Custom"
         return div
 
     def _clean_url(self, url):
@@ -81,6 +83,8 @@ class RepoCheck:
                     printc(v, fore="yellow")
                 else:
                     printc(v, fore="green")
+            else:
+                print(v)
 
 if __name__ == "__main__":
     avoid = ["GPL", "GNU General Public", "LGPL", "Lesser GNU"]

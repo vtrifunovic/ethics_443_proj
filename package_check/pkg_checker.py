@@ -9,9 +9,9 @@ class PkgCheck:
         self.pkg_dict = {}
         self.valid_lic = {}
         self.scan_files = []
-        self.deps = set()
+        self.deps = {}
 
-    def _dep_scan(self, pkg_name):
+    def _dep_scan(self, pkg_name, file_name):
         try:
             for i in requires(pkg_name):
                 dep_name = i.split(";")[0]
@@ -19,18 +19,20 @@ class PkgCheck:
                 dep_name = dep_name.split("<")[0]
                 dep_name = dep_name.split("=")[0]
                 dep_name = dep_name.split(" ")[0].strip()
-                if dep_name not in self.deps:
-                    self.deps.add(dep_name)
-                    self._dep_scan(dep_name)
-        except:
+                if dep_name not in self.deps and dep_name not in self.pkg_dict:
+                    self.deps[dep_name] = [pkg_name, file_name.split("/")[-1]]
+                    #self._dep_scan(dep_name, file_name)
+        except Exception as e:
+            #print(e)
             return
         
-    def _scan_import(self, pkg_name):
+    def _scan_import(self, pkg_name, file_name=None):
         try:
             meta = metadata(pkg_name)
         except:
             return None
-        self._dep_scan(pkg_name)
+        if file_name:
+            self._dep_scan(pkg_name, file_name)
         if "License" in meta:
             for line in meta['License'].split("\n"):
                 if line.lower().startswith("license:"):
@@ -54,14 +56,16 @@ class PkgCheck:
         printc(file_name, fore="green")
         for line in f:
             if line.startswith('import') or line.startswith('from'):
-                pkg = line.split(" ")[1].split(".")[0]
+                pkg = line.split(" ")[1].split(".")[0].strip()
                 if pkg in self.pkg_dict:
                     continue
-                self.pkg_dict[pkg] = [self._scan_import(pkg), file_name.split("/")[-1]]
+                self.pkg_dict[pkg] = [self._scan_import(pkg, file_name), file_name.split("/")[-1]]
         
         if deep:
-            for dep in self.deps:
-                self.pkg_dict[dep] = [self._scan_import(dep), file_name.split("/")[-1]]
+            for dep, v in self.deps.items():
+                if dep in self.pkg_dict:
+                    continue
+                self.pkg_dict[dep] = [self._scan_import(dep), v[1], v[0]] # fix
 
         self._clean_pkgs()       
 

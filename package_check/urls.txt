@@ -1,7 +1,8 @@
 https://github.com/gnome-terminator/terminator
 https://salsa.debian.org/apt-team/apt
-https://github.com/vtrifunovic/CImageOpener
 https://github.com/error_test/fake_link
 https://github.com/vtrifunovic/TxM
-https://gitlab.freedesktop.org/dbus/dbus
 https://github.com/py-pdf/pypdf
+https://github.com/pandas-dev/pandas
+https://gitlab.xfce.org/xfce/xfwm4
+https://gitlab.com/gitlab-org/gitlab-foss
