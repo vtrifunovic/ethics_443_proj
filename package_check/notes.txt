@@ -1,4 +1,4 @@
-When I first started this project I wanted to focus on the in class conversation we had about Charachter AI and how one of their chatbots played
+When I first started this project I wanted to focus on the in class conversation we had about Charachter AI and how one of their chatbots played 
 a part in the suicide of a 14 year old boy. While my ethical framework around it was still hazy, I figured my solution to this issue would be a sentiment
 analysis model that would be trained to detect signs of self-harm and raise some kind of warning or error that could be sent to and reviewed by an admin 
 to cut the conversation short if there were genuine signs of self harm.
@@ -23,11 +23,11 @@ I would effectively be asking the company to minimize profits for a one in a mil
 
 This example extends further than just Charachter AI. When thinking deeper about it, I began to realize that a lot of unetical practices are done with the 
 goal of maximizing profits. Think Enron, Theranos, and FTX. Maybe thats a bit more financial than tech and AI, so how about Apple's planned obselecence so customers are forced to buy new phones,
-[stable diffusion stealing art styles so it can have more training data] or Tesla cars crashing out because consumers were misled about their cars full self driving capabilities. 
+or Tesla cars crashing out because consumers were misled about their cars full self driving capabilities. 
 
 In all of these situations, these unetical choices were made to maximize profit for the company, and if my role as a developer is not to maximize profits,
 then it shouldn't be to worry about the ethics of those choices either. Especially, since the easiest solution to a lot of these issues would be very simple.
-Just dont do it. Dont slow down old phones, or steal art, there wouldn't be much for me to redo a solution to. 
+Just dont do it. Dont slow down old phones, there wouldn't be much for me to redo a solution to. 
 
 So where does that leave us? Does this mean that I'm free from having to worry about ethics at all? Not exactly, but the ethical framework that I am proposing is a modified version of deontology.
 Deontology states that "an action is considered morally good because of some charachteristic of the action, not because the product of the action is good". And I want to expand on it and say 
@@ -60,4 +60,4 @@ Since a lot of AI is built with python, I decided to redo these two steps for th
 through it to determine what libraries are used in it and extract their licenses, and the other a preliminary step for web scraping, to check if a certain repository is under licenses that
 the developers would like to avoid. 
 
-[show]
+[show demo of code]

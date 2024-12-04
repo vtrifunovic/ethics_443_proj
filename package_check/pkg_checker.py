@@ -126,7 +126,7 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser()
     parser.add_argument("--path", required=True, help="Path to project")
-    parser.add_argument("--avoid", required=True, help="List of lisences to avoid, separated by commas")
+    parser.add_argument("--check", required=True, help="List of lisences to avoid, separated by commas")
     parser.add_argument("--deep", action="store_true", required=False, help="Check dependencies")
     parser.add_argument("--noanalysis", action="store_true", required=False, help="Skip analysis")
     parser.add_argument("--listall", action="store_true", required=False, help="List all licenses found")
@@ -135,10 +135,10 @@ if __name__ == "__main__":
 
     ck = PkgCheck()
     ck.scan_project(args.path, deep=args.deep)
-    args.avoid = [i.strip() for i in args.avoid.split(",")]
+    args.check = [i.strip() for i in args.check.split(",")]
     if not args.noanalysis:
         input("Analysis")
-        ck.analyze_licenses(license_list=args.avoid)
+        ck.analyze_licenses(license_list=args.check)
     if args.listall:
         input("List all")
         ck.list_all(found=not args.all)
