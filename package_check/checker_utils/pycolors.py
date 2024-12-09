@@ -1,3 +1,4 @@
+import platform
 # ############################
 # Linux Dictionaries
 # ############################
@@ -12,7 +13,6 @@ lsd = {
     "match"     : "\033[8;",
     "crossed"   : "\033[9;",
 }
-
 
 lcd = {
     "black"     : "30m",
@@ -37,16 +37,57 @@ lbd = {
     "white"     : "\033[1;107m",
 }
 
+# ############################
+# Windows Dictionaries
+# ############################
+wsd = {
+    "bold"      : "^Esc[1m",
+    "dim"       : "^Esc[2m",
+    "italics"   : "^Esc[3m",
+    "underline" : "^Esc[4m",
+    "blinking"  : "^Esc[5m",
+    "invert"    : "^Esc[7m",
+    "match"     : "^Esc[8m",
+    "crossed"   : "^Esc[9m",
+}
+
+wcd = {
+    "black"     : "30m",
+    "red"       : "31m",
+    "green"     : "32m",
+    "yellow"    : "33m",
+    "blue"      : "34m",
+    "pink"      : "35m",
+    "cyan"      : "36m",
+    "white"     : "37m",
+    "reset"     : "\^Esc[0m"
+}
+
+wbd = {
+    "black"     : "^Esc[100m",
+    "red"       : "^Esc[101m",
+    "green"     : "^Esc[102m",
+    "yellow"    : "^Esc[103m",
+    "blue"      : "^Esc[104m",
+    "pink"      : "^Esc[105m",
+    "cyan"      : "^Esc[106m",
+    "white"     : "^Esc[107m",
+}
 
 def printc(text, fore="white", back=None, style="bold", end="\n", reset=True):
-    if back:
-        print(f"{lsd[style]}{lcd[fore]}{lbd[back]}{text}", end="")
-        if reset:
-             print(lcd['reset'], end=end)
+    if platform.system() == "Linux":
+        if back:
+            print(f"{lsd[style]}{lcd[fore]}{lbd[back]}{text}", end="")
+            if reset:
+                 print(lcd['reset'], end=end)
+        else:
+            print(f"{lsd[style]}{lcd[fore]}{text}", end="")
+            if reset:
+                print(lcd['reset'], end=end)
+    elif platform.system() == "Windows":
+        pass
     else:
-        print(f"{lsd[style]}{lcd[fore]}{text}", end="")
-        if reset:
-             print(lcd['reset'], end=end)
+        print(text)
 
 if __name__ == "__main__":
     fore_colors = lcd.keys()
@@ -59,3 +100,4 @@ if __name__ == "__main__":
                 printc(f"{i+" "+k:<16}", fore=i, back=j, style=k, end=" ", reset=True)
             print()
     printc("", reset=True, end="")
+    print(platform.system())

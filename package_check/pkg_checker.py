@@ -65,7 +65,7 @@ class PkgCheck:
             for dep, v in self.deps.items():
                 if dep in self.pkg_dict:
                     continue
-                self.pkg_dict[dep] = [self._scan_import(dep), v[1], v[0]] # fix
+                self.pkg_dict[dep] = [self._scan_import(dep), v[1], v[0]]
 
         self._clean_pkgs()       
 

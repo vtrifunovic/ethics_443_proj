@@ -13,7 +13,7 @@ class RepoCheck:
             printc("[  OK  ]", fore="black", back="green")
             return 1
         if response.status_code == 429:
-            printc("[ WAIT ]", fore="black", back="yellow")
+            printc("[ WAIT ]", fore="black", back="yellow", end=" ")
             time.sleep(int(response.headers["Retry-After"]))
             return self.check_repo(url)
         if response.status_code > 500:
