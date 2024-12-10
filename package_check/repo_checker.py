@@ -8,7 +8,7 @@ class RepoCheck:
     def __init__(self):
         pass
 
-    def _handle_response_codes(self, response, url, type):
+    def _handle_response_codes(self, response, url):
         if response.status_code == 200:
             printc("[  OK  ]", fore="black", back="green")
             return 1
@@ -30,12 +30,22 @@ class RepoCheck:
         if url == "github.com":
             return 0
         return 1
+    
+    def _handle_inner_avoids(self, avoid, action, license, url):
+        for a in avoid:
+            if re.search(a, license):
+                if action == "warn":
+                    printc("[WARNING!]", fore="black", back="yellow", style="invert", end=" ")
+                    print(f"{url} is under {license}")
+                if action == "error":
+                    raise TypeError(f"{url} is under {license}")
 
-    def check_repo(self, url, avoid=None):
+
+    def check_repo(self, url, avoid=None, action="warn"):
         response = requests.get(url)
         print(f"Checking:", end=" ")
         printc(url[:50], fore="pink", end=" "*(51-len(url)) )
-        if not self._handle_response_codes(response, url, 1):
+        if not self._handle_response_codes(response, url):
             return "Check url again"
         soup = BeautifulSoup(response.text, "html.parser")
         # i know these aren't divs anymore, but that was my original
@@ -48,9 +58,11 @@ class RepoCheck:
         if len(divs) < 1:
             return None
         div = divs[0].text.strip()
-        if div == "LICENSE": # handle this
+        if avoid:
+            self._handle_inner_avoids(avoid, action, div, url)
+        if div == "LICENSE": 
             return "Custom"
-        if div == "View license": # handle this
+        if div == "View license":
             return "Custom"
         return div
 
@@ -58,11 +70,11 @@ class RepoCheck:
         url = re.sub(r"https*://", "", url)
         return url.split("/", 1)[1]
     
-    def check_repos(self, url_list):
+    def check_repos(self, url_list, avoid=None, action="warn"):
         repo_dict = {}
         for url in url_list:
             repo_name = self._clean_url(url)
-            repo_dict[repo_name] = self.check_repo(url)
+            repo_dict[repo_name] = self.check_repo(url, avoid=avoid, action=action)
         return repo_dict
     
     def display_licenses(self, repo_dict, avoid=None):
@@ -94,4 +106,6 @@ if __name__ == "__main__":
     urls = [u.strip() for u in urls]
     f.close()
     val = rc.check_repos(urls)
+    # Uncomment below line to see how it would handle if imported as a class
+    #val = rc.check_repos(urls, avoid=avoid, action="warn")
     rc.display_licenses(val, avoid=avoid)

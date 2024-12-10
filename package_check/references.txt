@@ -25,5 +25,8 @@ https://thehill.com/changing-america/enrichment/science/4153770-apple-to-start-p
 MQ-9 Headline:
 https://www.defense.gov/News/News-Stories/Article/Article/2780257/dod-august-29-strike-in-kabul-tragic-mistake-kills-10-civilians/
 
+Anime girls holding programming books:
+https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books
+
 ffmpeg -i input.mp4 -c:v dnxhd -profile:v dnxhr_hq -pix_fmt yuv422p -c:a copy output.mov
 ffmpeg -i sample.avi -q:a 0 -map a sample.mp3

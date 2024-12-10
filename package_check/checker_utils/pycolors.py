@@ -1,10 +1,10 @@
 import platform
 import os
-os.system("")
+os.system("") # forces ANSI on Windows
+
 # ############################
 # Linux Dictionaries
 # ############################
-
 lsd = {
     "bold"      : "\033[1;",
     "dim"       : "\033[2;",
@@ -95,6 +95,8 @@ def printc(text, fore="white", back=None, style="bold", end="\n", reset=True):
             print(f"{wsd[style]}{wcd[fore]}{text}", end="")
             if reset:
                 print(wcd['reset'], end=end)
+    else:
+        print(text, end=end)
 
 if __name__ == "__main__":
     fore_colors = lcd.keys()
@@ -106,5 +108,3 @@ if __name__ == "__main__":
             for k in styles:
                 printc(f"{i+' '+k:<16}", fore=i, back=j, style=k, end=" ", reset=True)
             print()
-    printc("", reset=True, end="")
-    print(platform.system())
